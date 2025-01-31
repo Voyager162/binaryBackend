@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, current_app, Response, g
 from flask_restful import Api, Resource  # Used for REST API building
 from __init__ import app  # Ensure __init__.py initializes your Flask app
 from model.binaryConverter import BinaryConverter
-
+r
 # Blueprint for the API
 binary_converter_api = Blueprint('binary_converter_api', __name__, url_prefix='/api')
 
