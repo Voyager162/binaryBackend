@@ -2,36 +2,34 @@ from sqlite3 import IntegrityError
 from sqlalchemy.exc import SQLAlchemyError
 from __init__ import app, db
 
-class BinaryConverter (db.Model):
+class BinaryConverter(db.Model):
     """
     BinaryConverter Model
     
-    Represents a quiz with a question and answer associated with a user.
+    Represents a binary-to-decimal conversion record.
     """
     __tablename__ = 'binaryConverter'
 
     id = db.Column(db.Integer, primary_key=True)
     binary = db.Column(db.String(255), nullable=False)
     decimal = db.Column(db.String(255), nullable=False)
-     
 
-    def __init__(self, binary, decimal, ):
+    def __init__(self, binary, decimal):
         """
-        Constructor for Binary.
+        Constructor for BinaryConverter.
         """
         self.binary = binary
         self.decimal = decimal
-        
 
     def __repr__(self):
         """
-        Represents the QuizCreation object as a string for debugging.
+        Represents the BinaryConverter object as a string for debugging.
         """
-        return f"<QuizCreation(id={self.id}, question='{self.binary}', answer='{self.decimal})>"
+        return f"<BinaryConverter(id={self.id}, binary='{self.binary}', decimal='{self.decimal}')>"
 
     def create(self):
         """
-        Adds the quiz to the database and commits the transaction.
+        Adds the record to the database and commits the transaction.
         """
         try:
             db.session.add(self)
@@ -42,7 +40,7 @@ class BinaryConverter (db.Model):
 
     def read(self):
         """
-        Returns the quiz details as a dictionary.
+        Returns the binary-to-decimal conversion details as a dictionary.
         """
         return {
             "id": self.id,
@@ -52,7 +50,7 @@ class BinaryConverter (db.Model):
 
     def update(self, data):
         """
-        Updates the quiz with new data and commits the changes.
+        Updates the record with new data and commits the changes.
         """
         for key, value in data.items():
             if hasattr(self, key):
@@ -65,7 +63,7 @@ class BinaryConverter (db.Model):
 
     def delete(self):
         """
-        Deletes the quiz from the database and commits the transaction.
+        Deletes the record from the database and commits the transaction.
         """
         try:
             db.session.delete(self)
@@ -96,7 +94,7 @@ class BinaryConverter (db.Model):
 
 def initBinaryConverter():
     """
-    Initializes the QuizCreation table and inserts test data for development purposes.
+    Initializes the BinaryConverter table and inserts test data for development purposes.
     """
     with app.app_context():
         db.create_all()  # Create the database and tables
@@ -105,7 +103,6 @@ def initBinaryConverter():
         quizzes = [
             BinaryConverter(decimal="7777", binary="1111001100001"),
             BinaryConverter(decimal="2323", binary="100100010011"),
-            
         ]
 
         for quiz in quizzes:
