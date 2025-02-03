@@ -51,6 +51,8 @@ from model.binaryhistory import BinaryHistory, initBinaryHistory
 from model.binaryLearningGame import initBinaryLearningGameScores
 from model.binaryConverter import BinaryConverter, initBinaryConverter
 from model.lgatedata import initlgate
+from model.binaryOverflowPost import initBinaryPosts
+from model.binaryOverflowContent import initBinaryPostContent
 
 # server only Views
 
@@ -181,6 +183,9 @@ def generate_data():
     initBinaryLearningGameScores()
     initBinaryConverter()  
     initlgate()
+    # More new data wwwwww
+    initBinaryPosts()
+    initBinaryPostContent()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
