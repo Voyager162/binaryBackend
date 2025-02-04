@@ -174,18 +174,16 @@ def generate_data():
     initBinaryHistory()
     initUsers()
     initSections()
-    initComments()
         # initGroups()
         # initChannels()
         # initPosts()
-    initNestPosts()
     # New data being tested
     initBinaryLearningGameScores()
     initBinaryConverter()  
     initlgate()
     # More new data wwwwww
-    initBinaryPosts()
     initBinaryPostContent()
+    initBinaryPosts()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
