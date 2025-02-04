@@ -7,7 +7,9 @@ from model.binaryOverflowPost import BinaryOverflowPost
 binaryOverflowPost_api = Blueprint('binaryOverflowPost_api', __name__, url_prefix='/api')
 
 api = Api(binaryOverflowPost_api)
-
+### THIS API SHOULD ALMOST NEVER BE USED, IT IS PURELY FOR TESTING PURPOSES, EXCEPT FOR THE GET
+### THIS API SHOULD ALMOST NEVER BE USED, IT IS PURELY FOR TESTING PURPOSES, EXCEPT FOR THE GET
+### THIS API SHOULD ALMOST NEVER BE USED, IT IS PURELY FOR TESTING PURPOSES, EXCEPT FOR THE GET
 class BinaryOverflowPostAPI:
     class _CRUD(Resource):
         def get(self):
@@ -19,10 +21,9 @@ class BinaryOverflowPostAPI:
         def post(self):
             current_user = g.current_user
             data = request.get_json()
-            current_date = dt.datetime.now()
-            final_date = current_date.strftime
-            post = BinaryOverflowPost(data["title"], data["post_ref"], current_user.id, final_date)
-            return post
+            post = BinaryOverflowPost(data["title"], data["post_ref"], current_user.id)
+            post.create()
+            return jsonify(post.read())
         
         @token_required()
         def put(self):
