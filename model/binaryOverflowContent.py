@@ -15,12 +15,9 @@ class BinaryOverflowContent(db.Model):
     _state = db.Column(db.String(255), nullable=False)
     _parent = db.Column(db.Integer, nullable=True, default=None)
     _content = db.Column(db.String(255), nullable=False)
-    
-    # WIP
-    # _upvotes = db.Column(db.Integer, nullable=False)
-    # _downvotes = db.Column(db.Integer, nullable=False)
-    # _users_upvoted = db.Column(db.JSON, nullable=False)
-    # _users_downvoted = db.Column(db.JSON, nullable=False)
+    _upvotes = db.Column(db.Integer, nullable=False, default=0)
+    _downvotes = db.Column(db.Integer, nullable=False, default=0)
+    _users_voted = db.Column(db.JSON, nullable=True, default=None)
     
     def __init__(self, title, post_id, author, state, content, parent=None):
         self._title = title
@@ -31,7 +28,7 @@ class BinaryOverflowContent(db.Model):
         self._content = content
     
     def __repr__(self):
-        return f'BinaryOverflowContent(id={self.id}, title={self._title}, post_id={self._post_id}, author={self._author} state={self._state}, parent={self._parent}, content={self._content})'
+        return f'BinaryOverflowContent(id={self.id}, title={self._title}, post_id={self._post_id}, author={self._author} state={self._state}, parent={self._parent}, content={self._content}, upvotes={self._upvotes}, downvotes={self._downvotes}, users_voted={self._users_voted})'
     
     def create(self):
         # Create a new post object, this is to make building the page easier
@@ -50,7 +47,10 @@ class BinaryOverflowContent(db.Model):
             'author': self._author,
             'state': self._state,
             'parent': self._parent,
-            'content': self._content
+            'content': self._content,
+            'upvotes': self._upvotes,
+            'downvotes': self._downvotes,
+            'users_voted': self._users_voted            
         }
         
     def update(self, new_data):
@@ -99,7 +99,7 @@ def initBinaryPostContent():
         db.create_all()
         """Tester data for table"""
         
-        p1 = BinaryOverflowContent(title="Binary Megathread", post_id="000000", author=1,state="parent", content="This is the megathread for binary content")
+        p1 = BinaryOverflowContent(title="Binary Minithread", post_id="000000", author=1,state="parent", content="This is the megathread for binary content")
         
         for post in [p1]:
             try:
