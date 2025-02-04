@@ -1,7 +1,6 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
-from model.user import User
 from model.binaryOverflowContent import BinaryOverflowContent
 from datetime import datetime, timezone
 class BinaryOverflowPost(db.Model):
@@ -19,17 +18,26 @@ class BinaryOverflowPost(db.Model):
     _author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     _date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     
-    # # WIP Features
-    # _upvotes = db.Column(db.Integer, nullable=False)
-    # _downvotes = db.Column(db.Integer, nullable=False)
-    # _users_upvoted = db.Column()
-    # _users_downvoted = db.Column()
+    # HOW TO QUERY WITHOUT REFERENCING ID
+    # # Get posts created after a specific date
+    # specific_date = datetime(2025, 1, 1)
+    # posts = Post.query.filter(Post.created_at > specific_date).all()
+
+    # # Get posts updated after a specific date
+    # recent_posts = Post.query.filter(Post.updated_at > datetime(2025, 2, 1)).all()
     
-    def __init__(self, title, post_ref, blurb, author):
-        self._title = title
+    # # WIP Features
+    # _upvotes = db.Column(db.Integer, db.ForeignKey('binaryPostCotnent._upvotes'), nullable=True)
+    # _downvotes = db.Column(db.Integer, db.ForeignKey('binaryPostContent._upvotes'), nullable=True)
+    # _users_upvoted = db.Column(db.JSON, db.ForeignKey('binaryPostContent._users_upvoted, nullable=True))
+    # _users_downvoted = db.Column(db.JSON, db.ForeignKey('binaryPostContent._users_upvoted), nullable=True)
+    
+    def __init__(self, post_ref):
         self._post_ref = post_ref
-        self._blurb = blurb
-        self._author = author
+        post = BinaryOverflowContent.query.get(self._post_ref)
+        self._title = post._title if post else None
+        self._blurb = post._content if post else None
+        self._author = post._author if post else None
 
     def __repr__(self):
         return f'BinaryOverflowPosts(id={self.id}, title={self._title}, post_ref={self._post_ref}, blurb={self._blurb}, author={self._author}, date_posted={self._date_posted})'
@@ -43,14 +51,13 @@ class BinaryOverflowPost(db.Model):
             raise e
         
     def read(self):
-        user = User.query.get(self._author)
-        content = BinaryOverflowContent.query.get(self._post_ref)
+        post = BinaryOverflowContent.query.get(self._post_ref)
         return {
             'id': self.id,
-            'title': self._title,
-            'post_ref': content.title if content else None,
-            'blurb': self._blurb,
-            'author': user.name if user else None,
+            'title': post.title if post else None,
+            'post_ref': post.post_id if post else None,
+            'blurb': post.content if post else None,
+            'author': post.author if post else None,
             'date_posted': self._date_posted
         }
         
@@ -102,7 +109,7 @@ def initBinaryPosts():
         db.create_all()
         """Tester data for table"""
         
-        p1 = BinaryOverflowPost(title='Binary Megathread', post_ref=1, blurb="placeholder", author=1, date_posted="2024/02/24")  
+        p1 = BinaryOverflowPost(post_ref=1)  
         #  p2 = BinaryOverflowPost(title='Binary Minithread', post_ref=1, blurb="placeholder", author=1, date_posted="2024/02/24")  
         
         for post in [p1]:
