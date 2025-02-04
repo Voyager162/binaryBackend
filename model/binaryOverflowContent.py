@@ -1,6 +1,7 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
+from model.binaryOverflowPost import BinaryOverflowPost
 
 class BinaryOverflowContent(db.Model):
     __tablename__ = 'binaryPostContent'
@@ -8,18 +9,19 @@ class BinaryOverflowContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _title = db.Column(db.String(255), nullable=False)
     _post_id = db.Column(db.String(255), nullable=False)
+    _author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # Plan is for two types, either parent or child. If it's a child make sure to include the parent
     _state = db.Column(db.String(255), nullable=False)
-    _parent = db.Column(db.Integer, nullable=True)
+    _parent = db.Column(db.Integer, nullable=True, default=None)
     _content = db.Column(db.String(255), nullable=False)
     
     # WIP
     # _upvotes = db.Column(db.Integer, nullable=False)
     # _downvotes = db.Column(db.Integer, nullable=False)
-    # _users_upvoted = db.Column(db.JSON)
-    # _users_downvoted = db.Column()
+    # _users_upvoted = db.Column(db.JSON, nullable=False)
+    # _users_downvoted = db.Column(db.JSON, nullable=False)
     
-    def __init__(self, title, post_id, state, content, parent=None):
+    def __init__(self, title, post_id, state, content, parent):
         self._title = title
         self._post_id = post_id
         self._state = state
@@ -30,6 +32,8 @@ class BinaryOverflowContent(db.Model):
         return f'BinaryOverflowContent(id={self.id}, title={self._title}, post_id={self._post_id}, state={self._state}, parent={self._parent}, content={self._content})'
     
     def create(self):
+        # Create a new post object, this is to make building the page easier
+        post = BinaryOverflowPost(title=self._title, post_ref=1, blurb=self._content, author=self._author)
         try:
             db.session.add(self)
             db.session.commit()
