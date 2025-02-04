@@ -183,6 +183,7 @@ def generate_data():
     initlgate()
     # More new data wwwwww
     initBinaryPostContent()
+    initBinaryPosts()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
