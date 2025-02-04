@@ -29,8 +29,10 @@ def backup_database(db_uri, backup_uri):
     if backup_uri:
         db_path = db_uri.replace('sqlite:///', 'instance/')
         backup_path = backup_uri.replace('sqlite:///', 'instance/')
+        
         # Ensure the directory exists
         os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+        
         shutil.copyfile(db_path, backup_path)
         print(f"Database backed up to {backup_path}")
     else:
