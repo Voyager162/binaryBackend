@@ -1,10 +1,11 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
-from model.binaryOverflowPost import BinaryOverflowPost
 
 class BinaryOverflowContent(db.Model):
     __tablename__ = 'binaryPostContent'
+    
+    # IDEA FOR CREATING POST_ID. ADD ALL CURRENTLY EXISTING POST_ID TO A LIST AND .MAX() IT. (may need to convert to decimal first)
     
     id = db.Column(db.Integer, primary_key=True)
     _title = db.Column(db.String(255), nullable=False)
@@ -21,19 +22,19 @@ class BinaryOverflowContent(db.Model):
     # _users_upvoted = db.Column(db.JSON, nullable=False)
     # _users_downvoted = db.Column(db.JSON, nullable=False)
     
-    def __init__(self, title, post_id, state, content, parent):
+    def __init__(self, title, post_id, author, state, content, parent=None):
         self._title = title
         self._post_id = post_id
+        self._author = author
         self._state = state
         self._parent = parent
         self._content = content
     
     def __repr__(self):
-        return f'BinaryOverflowContent(id={self.id}, title={self._title}, post_id={self._post_id}, state={self._state}, parent={self._parent}, content={self._content})'
+        return f'BinaryOverflowContent(id={self.id}, title={self._title}, post_id={self._post_id}, author={self._author} state={self._state}, parent={self._parent}, content={self._content})'
     
     def create(self):
         # Create a new post object, this is to make building the page easier
-        post = BinaryOverflowPost(title=self._title, post_ref=1, blurb=self._content, author=self._author)
         try:
             db.session.add(self)
             db.session.commit()
@@ -46,6 +47,7 @@ class BinaryOverflowContent(db.Model):
             'id': self.id,
             'title': self._title,
             'post_id': self._post_id,
+            'author': self._author,
             'state': self._state,
             'parent': self._parent,
             'content': self._content
@@ -97,7 +99,7 @@ def initBinaryPostContent():
         db.create_all()
         """Tester data for table"""
         
-        p1 = BinaryOverflowContent(title="Binary Megathread", post_id="000000", state="parent", content="This is the megathread for binary content")
+        p1 = BinaryOverflowContent(title="Binary Megathread", post_id="000000", author=1,state="parent", content="This is the megathread for binary content")
         
         for post in [p1]:
             try:
