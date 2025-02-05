@@ -1,7 +1,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name binary.nighthawkcodingsociety.com ; # Change server name to the one on R53
+    server_name binary.stu.nighthawkcodingsociety.com ; # Change server name to the one on R53
     # Configure CORS Headers
     location / { 
         proxy_pass http://localhost:8501; # Change port to port on docker
