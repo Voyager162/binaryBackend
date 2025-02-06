@@ -1,10 +1,10 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name flocker.nighthawkcodingsociety.com ; # Change server name to the one on R53
+    server_name binary.stu.nighthawkcodingsociety.com ; # Change server name to the one on R53
     # Configure CORS Headers
     location / { 
-        proxy_pass http://localhost:8887; # Change port to port on docker
+        proxy_pass http://localhost:8051; # Change port to port on docker
         # Preflighted requests 
         if ($request_method = OPTIONS ) {
                 add_header "Access-Control-Allow-Credentials" "true" always;
