@@ -27,6 +27,7 @@ from api.messages_api import messages_api # Adi added this, messages for his web
 from api.binaryLearningGame import binaryLearningGameScores_api
 # New API's being tested
 from api.commentsAndFeedback import commentsAndFeedback_api
+from api.binaryOverflow import binaryOverflow_api
 
 from api.vote import vote_api
 from api.lgate import lgate_api
@@ -51,7 +52,7 @@ from model.binaryhistory import BinaryHistory, initBinaryHistory
 from model.binaryLearningGame import initBinaryLearningGameScores
 from model.binaryConverter import BinaryConverter, initBinaryConverter
 from model.lgatedata import initlgate
-from model.binaryOverflowPost import initBinaryPosts
+from model.binaryOverflowComments import initBinaryComments
 from model.binaryOverflowContent import initBinaryPostContent
 
 # server only Views
@@ -69,6 +70,7 @@ app.register_blueprint(binary_history_api)
 app.register_blueprint(binaryLearningGameScores_api)
 app.register_blueprint(student_api)
 app.register_blueprint(commentsAndFeedback_api)
+app.register_blueprint(binaryOverflow_api)
 
 app.register_blueprint(binary_converter_api)
 app.register_blueprint(lgate_api)
@@ -183,7 +185,7 @@ def generate_data():
     initlgate()
     # More new data wwwwww
     initBinaryPostContent()
-    initBinaryPosts()
+    initBinaryComments()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
