@@ -44,7 +44,7 @@ class BinaryOverflowContent(db.Model):
             'id': self.id,
             'title': self._title,
             'author': self._author,
-            'date_posted': self._date_posted,
+            'date_posted': self._date_posted.isoformat(),
             'content': self._content,
             'upvotes': self._upvotes,
             'downvotes': self._downvotes,

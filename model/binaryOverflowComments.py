@@ -44,7 +44,7 @@ class BinaryOverflowComments(db.Model):
             'post_ref': self._post_ref,
             'content': self._content,
             'author': self._author,
-            'date_posted': self._date_posted,
+            'date_posted': self._date_posted.isoformat(),
             'upvotes': self._upvotes,
             'downvotes': self._downvotes,
             'users_voted': self._users_voted
