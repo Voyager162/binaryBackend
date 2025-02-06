@@ -16,7 +16,7 @@ class BinaryOverflowComments(db.Model):
     _date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     _upvotes = db.Column(db.Integer, nullable=False, default=0)
     _downvotes = db.Column(db.Integer, nullable=False, default=0)
-    _users_voted = db.Column(db.JSON, nullable=True, default=None)
+    _users_voted = db.Column(db.JSON, nullable=True, default={})
         
     # Sets the initial parameters to create hte class
     def __init__(self, post_ref, content, author):
