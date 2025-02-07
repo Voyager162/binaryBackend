@@ -1,17 +1,12 @@
-array = []
+import json
+line = ["tim", "jim", "bob"]
+array = json.dumps(line)
 
-path = "samplepathname"
+print(array)
+print(type(array))
+print(type(line))
 
-print(path[1])
+line2 = json.loads(array)
 
-for i in range(len(path)):
-    array.append(hex(ord(path[i]))[2:])
-
-print(''.join(array))
-output = []
-
-for i in range(len(array)):
-    output.append(chr(int(array[i], 16)))
-
-print(''.join(output))
-    
+print(line2)
+print(type(line2))
