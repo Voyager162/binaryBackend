@@ -1,3 +1,4 @@
+import json
 from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
@@ -12,12 +13,10 @@ class BinaryOverflowContent(db.Model):
     _author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     _date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     _content = db.Column(db.String(255), nullable=False)
-    _upvotes = db.Column(db.Integer, nullable=False, default=0)
-    _downvotes = db.Column(db.Integer, nullable=False, default=0)
-    _users_voted = db.Column(db.JSON, nullable=True, default={})
     
     # Defined relationships
     comments = db.relationship('BinaryOverflowComments', backref='comments', cascade='all, delete-orphan')
+    votes = db.relationship('BinaryOverflowContentVotes', backref='votes', cascade='all, delete-orphan')
     
     # Initial parameters to create the class
     def __init__(self, title, author, content):
@@ -25,9 +24,9 @@ class BinaryOverflowContent(db.Model):
         self._author = author
         self._content = content
     
-    # Called when initally created (?). I think
+    # Called when repr(object) is called. I think
     def __repr__(self):
-        return f'BinaryOverflowContent(id={self.id}, title={self._title}, author={self._author}, date_posted={self._date_posted}, content={self._content}, upvotes={self._upvotes}, downvotes={self._downvotes}, users_voted={self._users_voted})'
+        return f'BinaryOverflowContent(id={self.id}, title={self._title}, author={self._author}, date_posted={self._date_posted}, content={self._content})'
     
     # Create a new post object
     def create(self):
@@ -40,15 +39,23 @@ class BinaryOverflowContent(db.Model):
         
     # Reads the data and returns it in a dictionary, key-pair value format
     def read(self):
+        votes = [vote.read() for vote in self.votes]
+        upvotes = 0
+        downvotes = 0
+        # There's probably a more efficient way to do this but oh well
+        for vote in votes:
+            if vote['vote'] < 0:
+                downvotes += 1
+            elif vote['vote'] > 0:
+                upvotes += 1
         return {
             'id': self.id,
             'title': self._title,
             'author': self._author,
             'date_posted': self._date_posted.isoformat(),
             'content': self._content,
-            'upvotes': self._upvotes,
-            'downvotes': self._downvotes,
-            'users_voted': self._users_voted            
+            'upvotes': upvotes,
+            'downvotes': downvotes
         }
         
     # Updates the data inside. Only updates things that should be updated using a PUT statement
@@ -82,24 +89,12 @@ class BinaryOverflowContent(db.Model):
             db.session.rollback()
             raise e
     
-    # Adds an upvote
-    def upvote(self):
-        # WIP NOT DONE
-        try:
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            raise e
-    
-    # Adds a downvote
-    def downvote(self):
-        # WIP NOT DONE
-        try:
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            raise e 
+    def vote(self, vote, user):
+        return self.votes
         
+### End Class
+        
+# Data Initialization
 def initBinaryPostContent():
     with app.app_context():
         """Create database and tables"""

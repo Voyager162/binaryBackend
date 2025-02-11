@@ -1,7 +1,6 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
-from model.binaryOverflowContent import BinaryOverflowContent
 from datetime import datetime, timezone
 
 class BinaryOverflowComments(db.Model):
@@ -14,9 +13,8 @@ class BinaryOverflowComments(db.Model):
     _author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # All of these are default values because they either shouldn't be controlled by user or should be the same for all posts
     _date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
-    _upvotes = db.Column(db.Integer, nullable=False, default=0)
-    _downvotes = db.Column(db.Integer, nullable=False, default=0)
-    _users_voted = db.Column(db.JSON, nullable=True, default={})
+    
+    votes = db.relationship('BinaryOverflowCommentVotes', backref='votes', cascade='all, delete-orphan')
         
     # Sets the initial parameters to create hte class
     def __init__(self, post_ref, content, author):
@@ -39,15 +37,23 @@ class BinaryOverflowComments(db.Model):
         
     # Reads data and returns it in a dictionary/JSON format. This is to return to the frontend
     def read(self):
+        votes = [vote.read() for vote in self.votes]
+        upvotes = 0
+        downvotes = 0
+        # There's probably a more efficient way to do this but oh well
+        for vote in votes:
+            if vote['vote'] < 0:
+                downvotes += 1
+            elif vote['vote'] > 0:
+                upvotes += 1
         return {
             'id': self.id,
             'post_ref': self._post_ref,
             'content': self._content,
             'author': self._author,
             'date_posted': self._date_posted.isoformat(),
-            'upvotes': self._upvotes,
-            'downvotes': self._downvotes,
-            'users_voted': self._users_voted
+            'upvotes': upvotes,
+            'downvotes': downvotes
         }
     
     # Updates the data within
