@@ -3,6 +3,8 @@ from flask_restful import Api, Resource  # used for REST API building
 from api.jwt_authorize import token_required
 from model.binaryOverflowComments import BinaryOverflowComments
 from model.binaryOverflowContent import BinaryOverflowContent
+from model.binaryOverflowContentVotes import BinaryOverflowContentVotes
+from model.binaryOverflowCommentVotes import BinaryOverflowCommentVotes
 
 binaryOverflow_api = Blueprint('binaryOverflow_api', __name__, url_prefix='/api')
 
@@ -17,7 +19,7 @@ class BinaryOverflowPostAPI:
             return json_ready
 
     # CRUD for the content model
-    class post_CRUD(Resource):
+    class POST_CRUD(Resource):
         def get(self):
             post_id = request.args.get('id')
             try:
@@ -65,7 +67,32 @@ class BinaryOverflowPostAPI:
                 return "post sucessfully deleted"
             else:
                 return "You cannot delete another user's posts"
+            
+    class CONTENT_VOTE(Resource):
+        @token_required()
+        def post(self):
+            data = request.get_json()
+            current_user = g.current_user
+            vote = BinaryOverflowContentVotes.query.filter_by(_user=current_user.id, id=data['post_id']).first()
+            if vote:
+                vote.update(data)
+            else:
+                vote = BinaryOverflowContentVotes(data["post_id"], current_user.id, data["vote"])
+                vote.create()
+            return jsonify(vote.read())
+        
+    class COMMENT_VOTE(Resource):
+        @token_required()
+        def post(self):
+            data = request.get_json()
+            current_user = g.current_user
+            vote = BinaryOverflowCommentVotes.query.filter_by(_user=current_user.id, id=data['post_id']).first()
+            if vote:
+                vote.update(data)
+            else:
+                vote = BinaryOverflowCommentVotes(data["post_id"], current_user.id, data["vote"])
+                vote.create()
     
     api.add_resource(fetch_frontend, '/binaryOverflow/home')
-    api.add_resource(post_CRUD, '/binaryOverflow/post')
-            
+    api.add_resource(POST_CRUD, '/binaryOverflow/post')
+    api.add_resource(CONTENT_VOTE, '/binaryOverflow/contentVote')      
