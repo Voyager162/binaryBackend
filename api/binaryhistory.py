@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app, Response, g
 from flask_restful import Api, Resource  # Used for REST API building
 from __init__ import app  # Ensure __init__.py initializes your Flask app
+from api.jwt_authorize import token_required
 from model.binaryhistory import BinaryHistory
 
 # Blueprint for the API
@@ -30,6 +31,7 @@ class BinaryHistoryAPI:
                 # Return an error message in case of failure
                 return jsonify({"error": str(e)}), 500
         
+        @token_required()
         def post(self):
             # Obtain the request data sent by the RESTful client API
             data = request.get_json()
@@ -40,21 +42,24 @@ class BinaryHistoryAPI:
             # Return response to the client in JSON format, converting Python dictionaries to JSON format
             return jsonify(post.read())
         
+        @token_required("Admin")
         def put(self):
-            # Obtain the request data
+            """
+            Update a section.
+            """
+            # Obtain the request data sent by the RESTful client API
             data = request.get_json()
-            # Find the current post from the database table(s)
-            post = BinaryHistory.query.get(data['id'])
-            # Update the post
-            post.year = data['year']
-            post.description = data['description']
-            # Save the post
-            post.update()
-            # Return response
-            return jsonify(post.read())
+            # Find the section to update
+            updated = BinaryHistory.query.all()
+            # Save the section object using the Object Relational Mapper (ORM) method defined in the model
+            updated.update({'year': data['year'], 'description': data['description']})
+            # Return a JSON restful response to the client
+            return jsonify(updated.read())
 
-        
+        @token_required("Admin")
         def delete(self):
+            # Obtain the current user
+            current_user = g.current_user
             # Obtain the request data
             data = request.get_json()
             # Find the current post from the database table(s)
