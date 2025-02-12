@@ -52,18 +52,7 @@ class BinaryConverterAPI:
             # Return response
             return jsonify(post.read())
         
-        def get(self):
-            try:
-                # Query all entries in the BinaryHistory table
-                entries = BinaryConverter.query.all()
-                # Convert the entries to a list of dictionaries
-                results = [entry.read() for entry in entries]
-                # Return the list of results in JSON format
-                return jsonify(results)
-            except Exception as e:
-                # Return an error message in case of failure
-                return jsonify({"error": str(e)}), 500
-        
+       
         
         def delete(self):
             # Obtain the request data
