@@ -95,4 +95,5 @@ class BinaryOverflowPostAPI:
     
     api.add_resource(fetch_frontend, '/binaryOverflow/home')
     api.add_resource(POST_CRUD, '/binaryOverflow/post')
-    api.add_resource(CONTENT_VOTE, '/binaryOverflow/contentVote')      
+    api.add_resource(CONTENT_VOTE, '/binaryOverflow/contentVote')
+    api.add_resource(COMMENT_VOTE, '/binaryOverflow/commentVote')
