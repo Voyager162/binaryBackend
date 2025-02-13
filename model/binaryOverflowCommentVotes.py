@@ -45,8 +45,11 @@ class BinaryOverflowCommentVotes(db.Model):
             return self
         
         vote = new_data.get('vote', '')
-        self._vote = vote
-        
+        if self._vote == vote:
+            self._vote = 0
+        else:
+            self._vote = vote
+               
         try:
             db.session.commit()
         except IntegrityError:
