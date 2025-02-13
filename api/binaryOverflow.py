@@ -92,6 +92,7 @@ class BinaryOverflowPostAPI:
             else:
                 vote = BinaryOverflowCommentVotes(data["post_id"], current_user.id, data["vote"])
                 vote.create()
+            return vote.read()
     
     api.add_resource(fetch_frontend, '/binaryOverflow/home')
     api.add_resource(POST_CRUD, '/binaryOverflow/post')
