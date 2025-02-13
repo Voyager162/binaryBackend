@@ -43,11 +43,12 @@ class BinaryOverflowContent(db.Model):
         upvotes = 0
         downvotes = 0
         # There's probably a more efficient way to do this but oh well
-        for vote in votes:
-            if vote['vote'] < 0:
-                downvotes += 1
-            elif vote['vote'] > 0:
-                upvotes += 1
+        if votes:
+            for vote in votes:
+                if vote['vote'] < 0:
+                    downvotes += 1
+                elif vote['vote'] > 0:
+                    upvotes += 1
         return {
             'id': self.id,
             'title': self._title,
