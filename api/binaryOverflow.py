@@ -17,6 +17,14 @@ class BinaryOverflowPostAPI:
             posts = BinaryOverflowContent.query.all()
             json_ready = [post.read() for post in posts]
             return json_ready
+        
+        @token_required()
+        def post(self):
+            current_user = g.current_user
+            data = request.get_json()
+            post = BinaryOverflowContent(data["title"], current_user.id, data["content"])
+            post.create()
+            return jsonify(post.read())
 
     # CRUD for the content model
     class POST_CRUD(Resource):
@@ -39,7 +47,7 @@ class BinaryOverflowPostAPI:
         def post(self):
             current_user = g.current_user
             data = request.get_json()
-            post = BinaryOverflowContent(data["title"], data["post_ref"], current_user.id)
+            post = BinaryOverflowContent(data["title"], current_user.id, data["content"])
             post.create()
             return jsonify(post.read())
         
