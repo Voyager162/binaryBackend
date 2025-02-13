@@ -8,7 +8,7 @@ class BinaryOverflowCommentVotes(db.Model):
         
     # Defined columns
     id = db.Column(db.Integer, primary_key=True)
-    _post_id = db.Column(db.String(255), db.ForeignKey('binaryPostComment.id'), nullable=False)
+    _post_id = db.Column(db.String(255), db.ForeignKey('binaryPostComments.id'), nullable=False)
     _user = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     _vote = db.Column(db.Integer, nullable=False)
     
