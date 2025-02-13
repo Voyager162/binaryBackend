@@ -24,7 +24,7 @@ class BinaryOverflowComments(db.Model):
 
     # String form of the class for python to interpret (?)
     def __repr__(self):
-        return f'BinaryOverflowComments(id={self.id} post_ref={self._post_ref}, content={self._content}, author={self._author}, date_posted={self._date_posted}, upvotes={self._upvotes}, downvotes={self._downvotes}, users_voted={self._users_voted})'
+        return f'BinaryOverflowComments(id={self.id} post_ref={self._post_ref}, content={self._content}, author={self._author}, date_posted={self._date_posted})'
     
     # Creates data in databases
     def create(self):
