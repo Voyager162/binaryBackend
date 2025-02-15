@@ -27,6 +27,7 @@ from api.messages_api import messages_api # Adi added this, messages for his web
 from api.binaryLearningGame import binaryLearningGameScores_api
 # New API's being tested
 from api.commentsAndFeedback import commentsAndFeedback_api
+from api.quizgrading import quizgrading_api
 from api.binaryOverflow import binaryOverflow_api
 
 from api.vote import vote_api
@@ -52,6 +53,7 @@ from model.binaryhistory import BinaryHistory, initBinaryHistory
 from model.binaryLearningGame import initBinaryLearningGameScores
 from model.binaryConverter import BinaryConverter, initBinaryConverter
 from model.lgatedata import initlgate
+from model.quizgrading import initquizgrading
 from model.binaryOverflowComments import initBinaryComments
 from model.binaryOverflowContent import initBinaryPostContent
 
@@ -74,6 +76,7 @@ app.register_blueprint(binaryOverflow_api)
 
 app.register_blueprint(binary_converter_api)
 app.register_blueprint(lgate_api)
+app.register_blueprint(quizgrading_api)
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
 
@@ -183,6 +186,7 @@ def generate_data():
     initBinaryLearningGameScores()
     initBinaryConverter()  
     initlgate()
+    initquizgrading()
     # More new data wwwwww
     initBinaryPostContent()
     initBinaryComments()
@@ -265,4 +269,4 @@ app.cli.add_command(custom_cli)
 # this runs the flask application on the development server
 if __name__ == "__main__":
     # change name for testing
-    app.run(debug=True, host="0.0.0.0", port="8887")
+    app.run(debug=True, host="0.0.0.0", port="8501")
