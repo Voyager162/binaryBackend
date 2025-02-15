@@ -2,6 +2,7 @@ from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
 from datetime import datetime, timezone
+from model.user import User
 
 class BinaryOverflowComments(db.Model):
     __tablename__ = 'binaryPostComments'
@@ -37,6 +38,7 @@ class BinaryOverflowComments(db.Model):
         
     # Reads data and returns it in a dictionary/JSON format. This is to return to the frontend
     def read(self):
+        user = User.query.get(self._author)
         votes = [vote.read() for vote in self.votes]
         upvotes = 0
         downvotes = 0
@@ -50,7 +52,7 @@ class BinaryOverflowComments(db.Model):
             'id': self.id,
             'post_ref': self._post_ref,
             'content': self._content,
-            'author': self._author,
+            'author': user.name if user else self._author,
             'date_posted': self._date_posted.isoformat(),
             'upvotes': upvotes,
             'downvotes': downvotes

@@ -3,6 +3,7 @@ from sqlite3 import IntegrityError
 from sqlalchemy import Text
 from __init__ import app, db
 from datetime import timezone, datetime
+from model.user import User
 
 class BinaryOverflowContent(db.Model):
     __tablename__ = 'binaryPostContent'
@@ -39,6 +40,7 @@ class BinaryOverflowContent(db.Model):
         
     # Reads the data and returns it in a dictionary, key-pair value format
     def read(self):
+        user = User.query.get(self._author)
         votes = [vote.read() for vote in self.votes]
         upvotes = 0
         downvotes = 0
@@ -52,7 +54,7 @@ class BinaryOverflowContent(db.Model):
         return {
             'id': self.id,
             'title': self._title,
-            'author': self._author,
+            'author': user.name if user else self._author, 
             'date_posted': self._date_posted.isoformat(),
             'content': self._content,
             'upvotes': upvotes,
