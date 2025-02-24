@@ -27,6 +27,7 @@ from api.messages_api import messages_api # Adi added this, messages for his web
 from api.binaryLearningGame import binaryLearningGameScores_api
 # New API's being tested
 from api.commentsAndFeedback import commentsAndFeedback_api
+from api.quizgrading import quizgrading_api
 
 from api.vote import vote_api
 from api.lgate import lgate_api
@@ -51,6 +52,7 @@ from model.binaryhistory import BinaryHistory, initBinaryHistory
 from model.binaryLearningGame import initBinaryLearningGameScores
 from model.binaryConverter import BinaryConverter, initBinaryConverter
 from model.lgatedata import initlgate
+from model.quizgrading import initquizgrading
 
 # server only Views
 
@@ -70,6 +72,7 @@ app.register_blueprint(commentsAndFeedback_api)
 
 app.register_blueprint(binary_converter_api)
 app.register_blueprint(lgate_api)
+app.register_blueprint(quizgrading_api)
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
 
@@ -181,6 +184,7 @@ def generate_data():
     initBinaryLearningGameScores()
     initBinaryConverter()  
     initlgate()
+    initquizgrading()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
