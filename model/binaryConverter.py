@@ -103,6 +103,23 @@ def initBinaryConverter():
         quizzes = [
             BinaryConverter(decimal="7777", binary="1111001100001"),
             BinaryConverter(decimal="2323", binary="100100010011"),
+            BinaryConverter(decimal="4444", binary= "1000101011100"),
+            BinaryConverter(decimal="6262", binary= "100001110110" ),
+            BinaryConverter(decimal="8754", binary= "10000100110010"),
+            BinaryConverter(decimal="6378", binary= "1100011101010"),
+            BinaryConverter(decimal="7642", binary= "1110111001010"),
+            BinaryConverter(decimal="11", binary= "1011"),
+            BinaryConverter(decimal="43", binary= "101011"),
+            BinaryConverter(decimal="444", binary= "110111100"),
+            BinaryConverter(decimal="73", binary= "1001001"),
+            BinaryConverter(decimal="999", binary= "1111100111"),
+            BinaryConverter(decimal="321", binary="101000001"),
+            BinaryConverter(decimal="57", binary="111001"),
+            BinaryConverter(decimal="673", binary="1010100001"),
+            BinaryConverter(decimal="3678", binary="111001011110"),
+            BinaryConverter(decimal="987", binary="1111011011"),
+            BinaryConverter(decimal="1235", binary="10011010011"),
+            BinaryConverter(decimal="87", binary="1010111"),
         ]
 
         for quiz in quizzes:
