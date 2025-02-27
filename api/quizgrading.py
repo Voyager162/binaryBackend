@@ -26,10 +26,11 @@ class GroupAPI:
             """
             Create a new group.
             """
+            # current_user = g.current_user
             # Obtain the request data sent by the RESTful client API
             data = request.get_json()
             # Create a new group object using the data from the request
-            chat = quizgrading(data['quizgrade'], data['attempt'])
+            chat = quizgrading(data['quizgrade'], data['attempt'], data['id'], data['username'])
             # Save the chat object using the Object Relational Mapper (ORM) method defined in the model
             chat.create()
             # Return response to the client in JSON format, converting Python dictionaries to JSON format
@@ -53,6 +54,8 @@ class GroupAPI:
             # Update the post
             post._quizgrade = data['quizgrade']
             post._attempt = data['attempt']
+            post._user_id = data['user_id']
+            post._username = data['username']
             # Save the post
             post.update()
             # Return response

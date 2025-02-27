@@ -8,12 +8,16 @@ class quizgrading(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _quizgrade = db.Column(db.String, nullable=False)
     _attempt = db.Column(db.String, nullable=False)
+    _user_id = db.Column(db.String(255), db.ForeignKey('users.id'), nullable=False)
+    _username = db.Column(db.String, nullable=False)
 
-    def __init__(self, quizgrade, attempt):
+    def __init__(self, quizgrade, attempt, user_id, _username):
 
         self._quizgrade = quizgrade
         self._attempt = attempt
-
+        self._user_id = user_id
+        self._username = _username
+        
     def __repr__(self):
         """
         The __repr__ method is a special method used to represent the object in a string format.
@@ -22,7 +26,7 @@ class quizgrading(db.Model):
         Returns:
             str: A text representation of how to create the object.
         """
-        return f"<quizgrading(id={self.id}, quizgrade={self._quizgrade}, attempt={self._attempt})>"
+        return f"<quizgrading(id={self.id}, quizgrade={self._quizgrade}, attempt={self._attempt}, user_id={self._user_id}, username={self._username})>"
 
     def create(self):
         """
@@ -55,6 +59,8 @@ class quizgrading(db.Model):
             "id": self.id,
             "quizgrade": self._quizgrade,
             "attempt": self._attempt,
+            "user_id": self._user_id,
+            "username": self._username
         }
         return data
     
@@ -110,10 +116,6 @@ def initquizgrading():
         """Tester data for table"""
         
         entries = [
-            quizgrading(quizgrade=50, attempt=1),  
-            quizgrading(quizgrade=60, attempt=2),
-            quizgrading(quizgrade=70, attempt=3),
-            quizgrading(quizgrade=80, attempt=4)
         ]
         for entry in entries:
             try:
