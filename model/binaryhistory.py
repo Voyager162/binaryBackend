@@ -121,25 +121,25 @@ def initBinaryHistory():
 
         # Sample test data
         events = [
-            BinaryHistory(description="Gottfried Wilhelm Leibniz conceives the idea of the binary numeral system in his essay 'Explication de l'Arithmétique Binaire'.", year="1679"),
-            BinaryHistory(description="Leibniz formally publishes his work on the binary numeral system in 'Explication de l'Arithmétique Binaire'.", year="1703"),
-            BinaryHistory(description="George Boole develops Boolean algebra, which becomes foundational for binary logic.", year="1847"),
-            BinaryHistory(description="George Boole publishes 'An Investigation of the Laws of Thought', further detailing Boolean algebra.", year="1854"),
-            BinaryHistory(description="Claude Shannon applies Boolean algebra to design electronic circuits in his master's thesis.", year="1937"),
-            BinaryHistory(description="John Atanasoff and Clifford Berry create the Atanasoff-Berry Computer (ABC), which uses binary.", year="1939"),
-            BinaryHistory(description="John von Neumann outlines the architecture of modern computers, emphasizing binary.", year="1945"),
-            BinaryHistory(description="The ENIAC computer is completed, though it uses decimal rather than binary.", year="1946"),
-            BinaryHistory(description="Claude Shannon publishes 'A Mathematical Theory of Communication', linking binary to information theory.", year="1948"),
+            BinaryHistory(description="Gottfried Wilhelm Leibniz conceives the idea of the binary numeral system in his essay 'Explication de l'Arithmétique Binaire'.", year="1670"),
+            BinaryHistory(description="Leibniz formally publishes his work on the binary numeral system in 'Explication de l'Arithmétique Binaire'.", year="1700"),
+            BinaryHistory(description="George Boole develops Boolean algebra, which becomes foundational for binary logic.", year="1840"),
+            BinaryHistory(description="George Boole publishes 'An Investigation of the Laws of Thought', further detailing Boolean algebra.", year="1850"),
+            BinaryHistory(description="Claude Shannon applies Boolean algebra to design electronic circuits in his master's thesis.", year="1930"),
+            BinaryHistory(description="John Atanasoff and Clifford Berry create the Atanasoff-Berry Computer (ABC), which uses binary.", year="1930"),
+            BinaryHistory(description="John von Neumann outlines the architecture of modern computers, emphasizing binary.", year="1940"),
+            BinaryHistory(description="The ENIAC computer is completed, though it uses decimal rather than binary.", year="1940"),
+            BinaryHistory(description="Claude Shannon publishes 'A Mathematical Theory of Communication', linking binary to information theory.", year="1940"),
             BinaryHistory(description="Alan Turing's work on binary-based computation contributes to the development of modern computer science.", year="1950"),
-            BinaryHistory(description="The UNIVAC I, the first commercial computer, uses binary in its operations.", year="1951"),
+            BinaryHistory(description="The UNIVAC I, the first commercial computer, uses binary in its operations.", year="1950"),
             BinaryHistory(description="Binary-coded decimal (BCD) becomes widely adopted for numerical representation in computing.", year="1960"),
-            BinaryHistory(description="ASCII (American Standard Code for Information Interchange) is introduced, using binary to represent characters.", year="1964"),
-            BinaryHistory(description="The UNIX operating system is created, relying heavily on binary representations.", year="1969"),
-            BinaryHistory(description="Intel releases the 4004 microprocessor, the first commercially available processor based on binary.", year="1971"),
+            BinaryHistory(description="ASCII (American Standard Code for Information Interchange) is introduced, using binary to represent characters.", year="1960"),
+            BinaryHistory(description="The UNIX operating system is created, relying heavily on binary representations.", year="1960"),
+            BinaryHistory(description="Intel releases the 4004 microprocessor, the first commercially available processor based on binary.", year="1970"),
             BinaryHistory(description="IBM introduces the PC, making binary-based computing accessible to the public.", year="1980"),
-            BinaryHistory(description="The World Wide Web is introduced, built upon binary protocols and systems.", year="1991"),
+            BinaryHistory(description="The World Wide Web is introduced, built upon binary protocols and systems.", year="1990"),
             BinaryHistory(description="The Y2K problem highlights the importance of binary in year representation and storage.", year="2000"),
-            BinaryHistory(description="Bitcoin, based on binary and cryptographic principles, is introduced.", year="2008")
+            BinaryHistory(description="Bitcoin, based on binary and cryptographic principles, is introduced.", year="2000")
         ]
 
 # to add to the database via postman, run main.py, go to postman, then select post, body, and then raw
