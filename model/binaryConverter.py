@@ -103,9 +103,26 @@ def initBinaryConverter():
 
         # Sample test data
         quizzes = [
-            BinaryConverter(decimal="7777", binary="1111001100001"),
-            BinaryConverter(decimal="2323", binary="100100010011"),
-            
+            BinaryConverter(decimal="1", binary="1"),
+            BinaryConverter(decimal="2", binary="10"),
+            BinaryConverter(decimal="3", binary="11"),
+            BinaryConverter(decimal="4", binary="100"),
+            BinaryConverter(decimal="5", binary="101"),
+            BinaryConverter(decimal="6", binary="110"),
+            BinaryConverter(decimal="7", binary="111"),
+            BinaryConverter(decimal="8", binary="1000"),
+            BinaryConverter(decimal="9", binary="1001"),
+            BinaryConverter(decimal="10", binary="1010"),
+            BinaryConverter(decimal="11", binary="1011"),
+            BinaryConverter(decimal="12", binary="1100"),
+            BinaryConverter(decimal="13", binary="1101"),
+            BinaryConverter(decimal="14", binary="1110"),
+            BinaryConverter(decimal="15", binary="1111"),
+            BinaryConverter(decimal="16", binary="10000"),
+            BinaryConverter(decimal="17", binary="10001"),
+            BinaryConverter(decimal="18", binary="10010"),
+            BinaryConverter(decimal="19", binary="10011"),
+            BinaryConverter(decimal="20", binary="10100"),
         ]
 
         for quiz in quizzes:
