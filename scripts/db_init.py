@@ -43,6 +43,9 @@ def main():
             # Ensure the directory exists
             db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', 'instance/')
             os.makedirs(os.path.dirname(db_path), exist_ok=True)
+            # Ensure the directory exists
+            db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', 'instance/')
+            os.makedirs(os.path.dirname(db_path), exist_ok=True)
             # Step 3: Build New schema
             # Check if the database has any tables
             inspector = db.inspect(db.engine)
@@ -60,6 +63,7 @@ def main():
             print(f"An error occurred in the first half: {e}")
             sys.exit(1)
     # Step 1: Build New schema and create test data
+    # Step 1: Build New schema and create test data
     try:
         with app.app_context():
             # Drop all the tables defined in the project
@@ -71,6 +75,7 @@ def main():
     except Exception as e:
         print(f"An error occurred: {e}")
         sys.exit(1)
+    # Log success
     # Log success
     print("Database initialized!")
 if __name__ == "__main__":
