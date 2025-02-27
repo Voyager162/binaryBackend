@@ -103,27 +103,26 @@ def initBinaryConverter():
 
         # Sample test data
         quizzes = [
-            BinaryConverter(decimal="20", binary="10100"),
+            BinaryConverter(decimal="1", binary="1"),
+            BinaryConverter(decimal="2", binary="10"),
             BinaryConverter(decimal="3", binary="11"),
+            BinaryConverter(decimal="4", binary="100"),
             BinaryConverter(decimal="5", binary="101"),
+            BinaryConverter(decimal="6", binary="110"),
+            BinaryConverter(decimal="7", binary="111"),
+            BinaryConverter(decimal="8", binary="1000"),
+            BinaryConverter(decimal="9", binary="1001"),
             BinaryConverter(decimal="10", binary="1010"),
+            BinaryConverter(decimal="11", binary="1011"),
+            BinaryConverter(decimal="12", binary="1100"),
+            BinaryConverter(decimal="13", binary="1101"),
+            BinaryConverter(decimal="14", binary="1110"),
             BinaryConverter(decimal="15", binary="1111"),
-            BinaryConverter(decimal="25", binary="11001"),
-            BinaryConverter(decimal="30", binary="11110"),
-            BinaryConverter(decimal="35", binary="100011"),
-            BinaryConverter(decimal="40", binary="101000"),
-            BinaryConverter(decimal="45", binary="101101"),
-            BinaryConverter(decimal="50", binary="110010"),
-            BinaryConverter(decimal="55", binary="110111"),
-            BinaryConverter(decimal="60", binary="111100"),
-            BinaryConverter(decimal="65", binary="1000001"),
-            BinaryConverter(decimal="70", binary="1000110"),
-            BinaryConverter(decimal="75", binary="1001011"),
-            BinaryConverter(decimal="80", binary="1010000"),
-            BinaryConverter(decimal="85", binary="1010101"),
-            BinaryConverter(decimal="88", binary="1011000"),
-            BinaryConverter(decimal="89", binary="1011001"),
-            
+            BinaryConverter(decimal="16", binary="10000"),
+            BinaryConverter(decimal="17", binary="10001"),
+            BinaryConverter(decimal="18", binary="10010"),
+            BinaryConverter(decimal="19", binary="10011"),
+            BinaryConverter(decimal="20", binary="10100"),
         ]
 
         for quiz in quizzes:
