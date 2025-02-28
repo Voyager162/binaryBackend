@@ -1,0 +1,77 @@
+{% extends "layouts/base.html" %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <h1>Binary Learning Game Scores Management</h1>
+    <table class="table table-striped" id="binaryLearningGameScores">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</td>
+                <th>UID</th>
+                <th>User Score</th>
+                <th>User Difficulty</th>
+                {% if current_user.role == 'Admin' %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in score_data %}
+            {% if current_user.role == 'Admin' %}
+            <tr>
+                <td>{{ score.id }}</td>
+                <td>{{ score._username }}</td>
+                <td>{{ score._user_id }}</td>
+                <td>{{ score._user_score }}</td>
+                <td>{{ score._user_difficulty }}</td>
+                {% if current_user.role == 'Admin' %}
+                <td>
+                    <button class="btn btn-danger delete-btn" data-id="{{ score.id }}">Delete</button>
+                </td>
+                {% endif %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if current_user.role == 'Admin' %}
+    <script>
+        // Ensure the DOM is fully loaded before running the script
+        $(document).ready(function() {
+            // Initialize the User Table using jQuery DataTables
+            $("#binaryLearningGameScores").DataTable();
+    
+            // Event delegation for delete button
+            // Attach a click event listener to elements with class 'delete-btn'
+            $(document).on("click", ".delete-btn", function() {
+                var id = $(this).data("id");
+                fetch("/scores/delete/" + id, {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                .then(response => {
+                    if (response.status === 200) {
+                        alert(response.body.message);
+                        location.reload();
+                    } else {
+                        alert(response.body.error || "Failed to delete user.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+   {% endif %}
+</div>
+{% endblock %}
+
+<!- This is turning off birds background from base.html -->
+{% block background %}
+{% endblock %}
+
+

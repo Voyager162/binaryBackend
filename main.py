@@ -141,10 +141,29 @@ def u2table():
     users = User.query.all()
     return render_template("u2table.html", user_data=users)
 
+
+# JUSTIN BROKE SOMETHING HERE
+@app.route('/users/table3')
+@login_required
+def u3table():
+    scores = BinaryLearningGameScores.query.all()
+    return render_template("binaryLearningGameTable.html", score_data=scores)
+# FINISH JUSTIN BREAKING STUFF
+
 # Helper function to extract uploads for a user (ie PFP image)
 @app.route('/uploads/<path:filename>')
 def uploaded_file(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+
+# JUSTIN PROCEEDS TO BREAK MORE STUFF
+@app.route('/scores/delete/<int:score_id>', methods=['DELETE'])
+@login_required
+def delete_score(score_id):
+    score = BinaryLearningGameScores.query.get(score_id)
+    if score:
+        score.delete()
+        return jsonify({'message': 'Score deleted successfully'}), 200
+    return jsonify({'error': 'User not found'}), 404
  
 @app.route('/users/delete/<int:user_id>', methods=['DELETE'])
 @login_required
