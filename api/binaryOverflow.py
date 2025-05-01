@@ -70,9 +70,9 @@ class BinaryOverflowPostAPI:
             # Change to reference post_id
             post = BinaryOverflowContent.query.get(data["id"])
             author = post.read()["author"]
-            if author == current_user.id:
+            if author == current_user.name:
                 post.delete()
-                return "post sucessfully deleted"
+                return "This post has been sucessfully deleted"
             else:
                 return "You cannot delete another user's posts"
             
